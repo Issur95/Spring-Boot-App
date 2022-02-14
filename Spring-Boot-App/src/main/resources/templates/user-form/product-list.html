@@ -1,0 +1,25 @@
+<div class="table-responsive">
+							<table id="productList" class="table table-bordered table-hover table-striped">
+								<thead class="thead-light">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Nombre</th>
+									<th scope="col">Cantidad</th>
+									<th scope="col">Descripcion</th>
+									<th></th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="product: ${productList}">
+									<td th:text="${product.pid}"></td>
+									<td th:text="${product.nombreP}"></td>
+									<td th:text="${product.cantidad}"></td>
+									<td th:text="${product.descripcion}"></td>
+									<td>
+										<a href="#" th:href="@{'/editProduct/'+ ${product.pid}}"><i class="fas fa-edit"></i></a>
+										| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${product.pid} +'\');'"><i class="fas fa-user-times"></i></a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>

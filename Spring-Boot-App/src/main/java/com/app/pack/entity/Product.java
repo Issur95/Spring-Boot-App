@@ -35,20 +35,20 @@ public class Product implements Serializable {
 	
 
 	@Column
-	private int codBarras;
+	private Integer codBarras;
 	
 
 	@Column
-	private int codQR;
+	private Integer codQR;
 	
 	@Column
 	private String tipo;
 	
 	@Column
-	private float precio;
+	private Float precio;
 	
 	@Column
-	private int cantidad;
+	private Integer cantidad;
 	
 	@Column
 	private String imagen;
