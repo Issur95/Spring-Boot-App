@@ -77,19 +77,19 @@ public class Product implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public int getCodBarras() {
+	public Integer getCodBarras() {
 		return codBarras;
 	}
 
-	public void setCodBarras(int codBarras) {
+	public void setCodBarras(Integer codBarras) {
 		this.codBarras = codBarras;
 	}
 
-	public int getCodQR() {
+	public Integer getCodQR() {
 		return codQR;
 	}
 
-	public void setCodQR(int codQR) {
+	public void setCodQR(Integer codQR) {
 		this.codQR = codQR;
 	}
 
@@ -101,19 +101,19 @@ public class Product implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public float getPrecio() {
+	public Float getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(float precio) {
+	public void setPrecio(Float precio) {
 		this.precio = precio;
 	}
 
-	public int getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(int cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
 
@@ -139,10 +139,10 @@ public class Product implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return cantidad == other.cantidad && codBarras == other.codBarras && codQR == other.codQR
-				&& Objects.equals(descripcion, other.descripcion) && Objects.equals(imagen, other.imagen)
-				&& Objects.equals(nombreP, other.nombreP) && Objects.equals(pid, other.pid)
-				&& Float.floatToIntBits(precio) == Float.floatToIntBits(other.precio)
+		return Objects.equals(cantidad, other.cantidad) && Objects.equals(codBarras, other.codBarras)
+				&& Objects.equals(codQR, other.codQR) && Objects.equals(descripcion, other.descripcion)
+				&& Objects.equals(imagen, other.imagen) && Objects.equals(nombreP, other.nombreP)
+				&& Objects.equals(pid, other.pid) && Objects.equals(precio, other.precio)
 				&& Objects.equals(tipo, other.tipo);
 	}
 
@@ -153,9 +153,7 @@ public class Product implements Serializable {
 				+ ", imagen=" + imagen + "]";
 	}
 	
-	
-	
-	
+   
 	
 	
 }
