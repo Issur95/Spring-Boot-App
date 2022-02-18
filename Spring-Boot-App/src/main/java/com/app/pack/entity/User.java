@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,27 +27,35 @@ public class User implements Serializable {
 	private Long uid;
 	
 	@Column
+	@NotBlank
 	private String nombre;
 	
 	@Column
+	@NotBlank
 	private String dni;
 
 	@Column
+	@NotBlank
 	private String apellido1;
 
 	@Column
 	private String apellido2;
 	
 	@Column
+	@NotBlank
 	private String fechaNac;
 	
 	@Column
 	private String rol;
 	
 	@Column
+	@NotBlank
+	@Size(min=10, message="Debe tener al menos 10 caracteres")
 	private String email;
 	
 	@Column
+	@NotBlank
+	@Size(min=6, message ="Contraseña demasiado corta")
 	private String password;
 	
 	

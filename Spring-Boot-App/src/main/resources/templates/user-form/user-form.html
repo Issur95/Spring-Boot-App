@@ -1,46 +1,58 @@
 
-						<form class="form" role="form" autocomplete="off" th:object="${userForm}">
+						<form class="form" role="form" autocomplete="off" th:object="${userForm}" method="post" th:action="@{/userForm}">
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 								<div class="col-lg-9">
 									<input class="form-control" type="text" th:field="${userForm.nombre}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error en el nombre</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Primer Apellido</label>
 								<div class="col-lg-9">
 									<input class="form-control" type="text" th:field="${userForm.apellido1}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}">Error en el apellido</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Segundo Apellido</label>
 								<div class="col-lg-9">
 									<input class="form-control" type="text" th:field="${userForm.apellido2}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}">Error en el apellido</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Email</label>
 								<div class="col-lg-9">
 									<input class="form-control" type="email" th:field="${userForm.email}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email erroneo</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Password</label>
 								<div class="col-lg-9">
 									<input class="form-control" type="password" th:field="${userForm.password}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Contraseña no valida</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">DNI</label>
 								<div class="col-lg-9">
 									<input class="form-control" type="text" th:field="${userForm.dni}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}">DNI no valido</div>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-lg-3 col-form-label form-control-label">Fecha Nacimiento</label>
+								<div class="col-lg-9">
+									<input class="form-control" type="text" th:field="${userForm.fechaNac}">
+									<div class="alert-danger" th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}">Fecha de nacimiento no valida</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-lg-12 text-center">
 									<input type="reset" class="btn btn-secondary" value="Cancel">
-									<input type="button" class="btn btn-primary"
-										value="Save Changes">
+									<input type="submit" class="btn btn-primary" value="Save Changes">
 								</div>
 							</div>
 						</form>
