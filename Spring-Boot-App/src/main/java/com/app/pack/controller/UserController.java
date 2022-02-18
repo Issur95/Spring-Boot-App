@@ -44,22 +44,18 @@ public class UserController {
 	public String postUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
 			model.addAttribute("userForm", user);
-			model.addAttribute("productForm", new Product());
 			model.addAttribute("formTab","active");
 		}else { 
 			try {
 				userService.createUser(user);
 				model.addAttribute("userForm", new User());
-				model.addAttribute("productForm", new Product());
-				model.addAttribute("listTab","active");
 			} catch (Exception e) {
 				model.addAttribute("formError",e.getMessage());
 				model.addAttribute("userForm", user);
-				model.addAttribute("productForm", new Product());
 				model.addAttribute("formTab","active");
 			}
 		}
-
+		model.addAttribute("productForm", new Product());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("productList", productService.getAllProducts());
 		return "user-form/user-view";
