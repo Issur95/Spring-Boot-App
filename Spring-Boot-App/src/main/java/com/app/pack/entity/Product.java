@@ -2,6 +2,7 @@ package com.app.pack.entity;
 
 
 import java.io.Serializable;
+
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,30 +31,38 @@ public class Product implements Serializable {
 	
 
 	@Column
+	@NotBlank(message="Campo vacío")
 	private String nombreP;
 	
 
 	@Column
+	@NotBlank(message="Campo vacío")
 	private String descripcion;
 	
 
 	@Column
+	@NotNull(message="Campo vacío")
 	private Integer codBarras;
 	
 
 	@Column
+	@NotNull(message="Campo vacío")
 	private Integer codQR;
 	
 	@Column
+	@NotBlank(message="Campo vacío")
 	private String tipo;
 	
 	@Column
+	@NotNull(message="Campo vacío")
 	private Float precio;
 	
 	@Column
+	@NotNull(message="Campo vacío")
 	private Integer cantidad;
 	
 	@Column
+	@NotBlank(message="Campo vacío")
 	private String imagen;
 
 	public Long getPid() {
@@ -152,6 +164,7 @@ public class Product implements Serializable {
 				+ codBarras + ", codQR=" + codQR + ", tipo=" + tipo + ", precio=" + precio + ", cantidad=" + cantidad
 				+ ", imagen=" + imagen + "]";
 	}
+
 	
    
 	

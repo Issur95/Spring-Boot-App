@@ -55,4 +55,5 @@
 									<input type="submit" class="btn btn-primary" value="Save Changes">
 								</div>
 							</div>
+							<div class="alert alert-danger text-center" th:if="${formError}" th:text="${formError}">Mensaje de error</div>
 						</form>

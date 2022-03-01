@@ -44,22 +44,23 @@
 	<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
 		<ul class="nav nav-tabs justify-content-end">
 			<li class="nav-item">
-			<a class="nav-link " th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Lista de Usuarios</a>		
+			<a class="nav-link active" th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Lista de Usuarios</a>		
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" th:classappend=" ${listTab2}" id="list-tab2" data-toggle="tab" href="#list2" role="tab" aria-controls="list2" aria-selected="false">Lista de Productos</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link active" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Anadir Usuario</a>			   	
+			<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="false">Anadir Usuario</a>			   	
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" th:classappend=" ${formTab2}" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form2" aria-selected="true">Anadir Producto</a>			   	
+			<a class="nav-link" th:classappend=" ${formTab2}" id="form-tab2" data-toggle="tab" href="#form2" role="tab" aria-controls="form2" aria-selected="false">Anadir Producto</a>			   	
 			</li>
 		</ul>
 		
 		
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade" th:classappend=" ${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">
+			
+			<div class="tab-pane fade show " th:classappend=" ${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">
 				<div class="card">
 					<div class="card-header">
 						<h4>Usuarios Registrados</h4>
@@ -69,10 +70,12 @@
 
 					</div>
 				</div>
+			
 			</div>
 		
 			
-			<div class="tab-pane fade" th:classappend=" ${listTab2}" id="list2" role="tabpanel" aria-labelledby="list-tab2">
+			
+			<div class="tab-pane fade show" th:classappend=" ${listTab2}" id="list2" role="tabpanel" aria-labelledby="list-tab2">
 				<div class="card">
 					<div class="card-header">
 						<h4>Productos Registrados</h4>
@@ -83,10 +86,12 @@
 
 					</div>
 				</div>
+			
 			</div>
 		
 		
-			<div class="tab-pane fade show active" th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
+			
+			<div class="tab-pane fade show" th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
 				<div class="card">
 					<div class="card-header">
 						<h4>Informacion del Usuario</h4>
@@ -95,9 +100,11 @@
 						<div th:include="user-form/user-form.html" th:remove="tag"></div>
 					</div>
 				</div>
+			
 			</div>
 			
-			<div class="tab-pane fade" th:classappend=" ${formTab2}" id="form2" role="tabpanel" aria-labelledby="form-tab2">
+			
+			<div class="tab-pane fade show" th:classappend=" ${formTab2}" id="form2" role="tabpanel" aria-labelledby="form-tab2">
 				<div class="card">
 					<div class="card-header">
 						<h4>Informacion del Producto</h4>
@@ -106,6 +113,7 @@
 						<div th:include="user-form/product-form.html" th:remove="tag"></div> 
 					</div>
 				</div>
+			
 			</div>
 			
 			</div>

@@ -27,34 +27,32 @@ public class User implements Serializable {
 	private Long uid;
 	
 	@Column
-	@NotBlank
+	@NotBlank(message="Campo vacío")
 	private String nombre;
 	
 	@Column
-	@NotBlank
+	@NotBlank(message="Campo vacío")
 	private String dni;
 
 	@Column
-	@NotBlank
+	@NotBlank(message="Campo vacío")
 	private String apellido1;
 
 	@Column
 	private String apellido2;
 	
 	@Column
-	@NotBlank
+	@NotBlank(message="Campo vacío")
 	private String fechaNac;
 	
 	@Column
 	private String rol;
 	
 	@Column
-	@NotBlank
 	@Size(min=10, message="Debe tener al menos 10 caracteres")
 	private String email;
 	
 	@Column
-	@NotBlank
 	@Size(min=6, message ="Contraseña demasiado corta")
 	private String password;
 	

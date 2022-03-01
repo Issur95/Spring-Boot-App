@@ -35,7 +35,7 @@ public class UserController {
 			model.addAttribute("productForm", new Product());
 			model.addAttribute("userList", userService.getAllUsers());
 			model.addAttribute("productList", productService.getAllProducts());
-			model.addAttribute("form","active");
+			model.addAttribute("listTab","active");
 			
 		return "user-form/user-view";
 	}
@@ -49,10 +49,13 @@ public class UserController {
 			try {
 				userService.createUser(user);
 				model.addAttribute("userForm", new User());
+				model.addAttribute("listTab","active");
 			} catch (Exception e) {
 				model.addAttribute("formError",e.getMessage());
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
+				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("productList", productService.getAllProducts());
 			}
 		}
 		model.addAttribute("productForm", new Product());
@@ -61,6 +64,30 @@ public class UserController {
 		return "user-form/user-view";
 	}
 		
+	
+	@PostMapping("/productForm")
+	public String postProductForm(@Valid @ModelAttribute("productForm")Product product, BindingResult result2, ModelMap model) {
+		if(result2.hasErrors()) {
+			model.addAttribute("productForm", product);
+			model.addAttribute("formTab2","active");
+		}else { 
+			try {
+				productService.createProduct(product);
+				model.addAttribute("productForm", new Product());
+				model.addAttribute("listTab2","active");
+			} catch (Exception e) {
+				model.addAttribute("formError",e.getMessage());
+				model.addAttribute("productForm", product);
+				model.addAttribute("formTab2","active");
+				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("productList", productService.getAllProducts());
+			}
+		}
+		model.addAttribute("userForm", new User());
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("productList", productService.getAllProducts());
+		return "user-form/user-view";
+	}
 	
 
 }
