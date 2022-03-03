@@ -11,4 +11,6 @@ public interface ProductService {
 	public Product getProductById(Long id) throws Exception;
 	
 	public Product updateProduct(Product product) throws Exception;
+
+	public void deleteProduct(Long id) throws Exception;
 }

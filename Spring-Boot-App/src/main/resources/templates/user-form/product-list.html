@@ -17,9 +17,23 @@
 									<td th:text="${product.descripcion}"></td>
 									<td>
 										<a href="#" th:href="@{'/editProduct/'+ ${product.pid}}"><i class="fas fa-edit"></i></a>
-										| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${product.pid} +'\');'"><i class="fas fa-user-times"></i></a>
+										| <a href="#" th:onclick="'javascript:confirmarDelete2(\''+ ${product.pid} +'\');'"><i class="fas fa-user-times"></i></a>
 									</td>
 								</tr>
 								</tbody>
 							</table>
+							<div class="alert alert-danger text-center" th:if="${deleteError}" th:text="${deleteError}">Mensaje de error</div>
 						</div>
+						
+						
+						<script type="text/javascript">
+							function confirmarDelete2(id){
+								$('#deleteModal2').modal('show');
+								$("#productIdHiddenInput").val(id);
+							}
+
+							function deleteProduct(){
+								var id = $("#productIdHiddenInput").val();
+    							window.location = "deleteProduct/"+id;
+							}
+						</script>

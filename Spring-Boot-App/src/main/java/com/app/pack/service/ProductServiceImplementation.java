@@ -70,4 +70,11 @@ public class ProductServiceImplementation implements ProductService{
 		newProduct.setPrecio(oldProduct.getPrecio());
 		newProduct.setPrecio(oldProduct.getPrecio());
 	}
+
+	@Override
+	public void deleteProduct(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		Product product = productRepository.findById(id).orElseThrow(() -> new Exception("Producto no encontrado"));
+		productRepository.delete(product);
+	}
 }

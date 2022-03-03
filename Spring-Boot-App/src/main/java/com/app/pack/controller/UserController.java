@@ -180,5 +180,24 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/deleteUser/{id}")
+	public String deleteUser(Model model, @PathVariable(name="id") Long id) {
+		try {
+			userService.deleteUser(id);
+		} catch (Exception e) {
+			model.addAttribute("deleteError","No se puede eliminar usuario");
+		}
+		return "redirect:/userForm";
+	}
+	
+	@GetMapping("/deleteProduct/{id}")
+	public String deleteProduct(Model model, @PathVariable(name="id") Long id) {
+		try {
+			productService.deleteProduct(id);
+		} catch (Exception e) {
+			model.addAttribute("deleteError","No se puede eliminar producto");
+		}
+		return "redirect:/userForm";
+	}
 
 }

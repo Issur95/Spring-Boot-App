@@ -61,4 +61,11 @@ public class UserServiceImplementation implements UserService{
 		newUser.setDni(oldUser.getDni());
 		newUser.setPassword(oldUser.getPassword());
 	}
+
+	@Override
+	public void deleteUser(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(id).orElseThrow(() -> new Exception("Usuario no encontrado"));
+		userRepository.delete(user);
+	}
 }
