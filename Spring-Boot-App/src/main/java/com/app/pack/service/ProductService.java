@@ -7,4 +7,8 @@ public interface ProductService {
 	public Iterable<Product> getAllProducts();
 
 	public Product createProduct(Product formProduct) throws Exception;
+
+	public Product getProductById(Long id) throws Exception;
+	
+	public Product updateProduct(Product product) throws Exception;
 }

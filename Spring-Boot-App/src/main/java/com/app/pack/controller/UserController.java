@@ -134,5 +134,51 @@ public class UserController {
 	public String cancelEditUser(ModelMap model) {
 		return "redirect:/userForm";
 	}
+	
+	@GetMapping("/editProduct/{id}")
+	public String getEditProductForm(Model model, @PathVariable(name="id") Long id) throws Exception {
+		Product product = productService.getProductById(id);
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("productList", productService.getAllProducts());
+		model.addAttribute("productForm", product);
+		model.addAttribute("userForm", new User());
+		model.addAttribute("formTab2","active");
+		model.addAttribute("editMode",true);
+		
+		return "user-form/user-view";
+	}
+	
+	@PostMapping("/editProduct")
+	public String postEditProductForm(@Valid @ModelAttribute("productForm")Product product, BindingResult result4, ModelMap model) {
+		if(result4.hasErrors()) {
+			model.addAttribute("productForm", product);
+			model.addAttribute("formTab2","active");
+			model.addAttribute("editMode","true");
+		}else { 
+			try {
+				productService.updateProduct(product);
+				model.addAttribute("productForm", new Product());
+				model.addAttribute("listTab2","active");
+			} catch (Exception e) {
+				model.addAttribute("formError",e.getMessage());
+				model.addAttribute("productForm", product);
+				model.addAttribute("formTab2","active");
+				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("productList", productService.getAllProducts());
+				model.addAttribute("editMode","true");
+			}
+		}
+		model.addAttribute("userForm", new User());
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("productList", productService.getAllProducts());
+		return "user-form/user-view";
+	}
+	
+	@GetMapping("/productForm/cancel")
+	public String cancelEditProduct(ModelMap model) {
+		return "redirect:/userForm";
+	}
+	
+	
 
 }

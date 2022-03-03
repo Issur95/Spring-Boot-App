@@ -1,7 +1,7 @@
 
 						<form class="form" role="form" autocomplete="off" th:object="${userForm}" method="post" th:action="${editMode} ?@{/editUser} :@{/userForm}">
-							<input class="form-control" type=hidden th:field="${userForm.uid}"  th:if="${editMode}">
-							<input class="form-control" type=hidden value="xxxx" th:if="${editMode}">
+							<input class="form-control" type=hidden th:field="${userForm.uid}"  th:if="${editMode}"> 
+<!-- salta error sin esta linea de arriba porque el uid seria nulo, no se va a cambiar, por lo tanto, se mantendra en hidden el uid con el valor previo sin opcion a cambiarlo-->
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 								<div class="col-lg-9">
@@ -30,7 +30,8 @@
 									<div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email erroneo</div>
 								</div>
 							</div>
-							<div class="form-group row" >
+							<div class="form-group row" > 
+<!--  th:action="${editMode} ?@{/editUser} :@{/userForm}" si se quisiera evitar cambio de contraseña -->
 								<label class="col-lg-3 col-form-label form-control-label">Password</label>
 								<div class="col-lg-9">
 									<input class="form-control" type="password" th:field="${userForm.password}">

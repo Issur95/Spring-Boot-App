@@ -43,4 +43,31 @@ public class ProductServiceImplementation implements ProductService{
 		}
 		return true;
 	}
+
+	@Override
+	public Product getProductById(Long id) throws Exception {
+		Product product= productRepository.findById(id).orElseThrow(()-> new Exception("No existe el producto"));
+		return product;
+	}
+
+	@Override
+	public Product updateProduct(Product oldProduct) throws Exception {
+		Product newProduct = getProductById(oldProduct.getPid());
+		mapProduct(oldProduct, newProduct);
+		productRepository.save(newProduct);
+		return newProduct;
+		
+	}
+	
+
+	protected void mapProduct(Product oldProduct, Product newProduct) {
+		newProduct.setNombreP(oldProduct.getNombreP());
+		newProduct.setTipo(oldProduct.getTipo());
+		newProduct.setDescripcion(oldProduct.getDescripcion());
+		newProduct.setCodBarras(oldProduct.getCodBarras());
+		newProduct.setCodQR(oldProduct.getCodQR());
+		newProduct.setCantidad(oldProduct.getCantidad());
+		newProduct.setPrecio(oldProduct.getPrecio());
+		newProduct.setPrecio(oldProduct.getPrecio());
+	}
 }
