@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -32,6 +33,7 @@ public class User implements Serializable {
 	
 	@Column
 	@NotBlank(message="Campo vacío")
+	@Pattern(regexp = "[0-9]{8}[A-Za-z]{1}", message="El formato debe ser 8 numeros y 1 letra")
 	private String dni;
 
 	@Column

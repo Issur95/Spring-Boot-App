@@ -3,6 +3,7 @@ package com.app.pack.entity;
 
 import java.io.Serializable;
 
+
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,9 +11,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -42,12 +47,13 @@ public class Product implements Serializable {
 
 	@Column
 	@NotNull(message="Campo vacío")
-	private Integer codBarras;
+	@Pattern(regexp = "[0-9]{13}", message="El formato correcto son 13 dígitos")
+	private String codBarras;
 	
 
 	@Column
 	@NotNull(message="Campo vacío")
-	private Integer codQR;
+	private String codQR;
 	
 	@Column
 	@NotBlank(message="Campo vacío")
@@ -59,7 +65,7 @@ public class Product implements Serializable {
 	
 	@Column
 	@NotNull(message="Campo vacío")
-	private Integer cantidad;
+	private Long cantidad;
 	
 	@Column
 	@NotBlank(message="Campo vacío")
@@ -89,19 +95,19 @@ public class Product implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Integer getCodBarras() {
+	public String getCodBarras() {
 		return codBarras;
 	}
 
-	public void setCodBarras(Integer codBarras) {
+	public void setCodBarras(String codBarras) {
 		this.codBarras = codBarras;
 	}
 
-	public Integer getCodQR() {
+	public String getCodQR() {
 		return codQR;
 	}
 
-	public void setCodQR(Integer codQR) {
+	public void setCodQR(String codQR) {
 		this.codQR = codQR;
 	}
 
@@ -121,11 +127,11 @@ public class Product implements Serializable {
 		this.precio = precio;
 	}
 
-	public Integer getCantidad() {
+	public Long getCantidad() {
 		return cantidad;
 	}
 
-	public void setCantidad(Integer cantidad) {
+	public void setCantidad(Long cantidad) {
 		this.cantidad = cantidad;
 	}
 

@@ -41,14 +41,14 @@
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">DNI</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" th:field="${userForm.dni}">
+									<input class="form-control" maxlength="9" type="text" th:field="${userForm.dni}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}">DNI no valido</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Fecha Nacimiento</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" th:field="${userForm.fechaNac}">
+									<input class="form-control" type="date"  maxlength="10"  min="1900-01-01" max="2030-12-31" th:field="${userForm.fechaNac}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}">Fecha de nacimiento no valida</div>
 								</div>
 							</div>

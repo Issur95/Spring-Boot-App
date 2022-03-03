@@ -11,7 +11,7 @@ import com.app.pack.entity.Product;
 public interface ProductRepository extends CrudRepository <Product, Long>{
 
 	public Set<Product> findByNombreP( String nombrep );
-	public Set<Product> findByCodBarras( int codBarras );
+	public Set<Product> findByCodBarras( String string );
 	public Set<Product> findByCodQR ( int QR );
 
 }
