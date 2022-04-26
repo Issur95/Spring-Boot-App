@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.pack.entity.Product;
 import com.app.pack.entity.User;
+import com.app.pack.repository.RoleRepository;
 import com.app.pack.service.ProductService;
 import com.app.pack.service.UserService;
 
@@ -24,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	RoleRepository roleRepository;
 
 	@GetMapping("/")
 	public String index() {
@@ -33,6 +37,7 @@ public class UserController {
 	@GetMapping("/userForm")
 	public String UserForm(Model model) {
 			model.addAttribute("userForm", new User());
+			model.addAttribute("roles",roleRepository.findAll());
 			model.addAttribute("productForm", new Product());
 			model.addAttribute("userList", userService.getAllUsers());
 			model.addAttribute("productList", productService.getAllProducts());
@@ -50,16 +55,19 @@ public class UserController {
 			try {
 				userService.createUser(user);
 				model.addAttribute("userForm", new User());
+				model.addAttribute("roles",roleRepository.findAll());
 				model.addAttribute("listTab","active");
 			} catch (Exception e) {
 				model.addAttribute("formError",e.getMessage());
 				model.addAttribute("userForm", user);
+				model.addAttribute("roles",roleRepository.findAll());
 				model.addAttribute("formTab","active");
 				model.addAttribute("userList", userService.getAllUsers());
 				model.addAttribute("productList", productService.getAllProducts());
 			}
 		}
 		model.addAttribute("productForm", new Product());
+		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("productList", productService.getAllProducts());
 		return "user-form/user-view";
@@ -85,6 +93,7 @@ public class UserController {
 			}
 		}
 		model.addAttribute("userForm", new User());
+		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("productList", productService.getAllProducts());
 		return "user-form/user-view";
@@ -94,6 +103,7 @@ public class UserController {
 	@GetMapping("/editUser/{id}")
 	public String getEditUserForm(Model model, @PathVariable(name="id") Long id) throws Exception {
 		User user = userService.getUserById(id);
+		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("productList", productService.getAllProducts());
 		model.addAttribute("userForm", user);
@@ -169,6 +179,7 @@ public class UserController {
 			}
 		}
 		model.addAttribute("userForm", new User());
+		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("productList", productService.getAllProducts());
 		return "user-form/user-view";

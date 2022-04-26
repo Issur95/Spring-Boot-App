@@ -53,6 +53,15 @@
 								</div>
 							</div>
 							<div class="form-group row">
+								<label th:text="Roles" class="col-lg-3 col-form-label form-control-label"></label>
+								<div class="col-lg-9">
+									<select class="form-control" size="2" th:field="${userForm.rol}">
+									<option th:each="role :${roles}" th:value="${role.id}" th:text="${role.name}">
+									</option>
+									</select>
+							</div>
+							</div>
+							<div class="form-group row">
 								<div class="col-lg-12 text-center">
 									<a class="btn btn-secondary" th:href="@{'/userForm/cancel'}" > Cancel </a>
 									<input type="submit" class="btn btn-primary" value="Save Changes" th:value="${editMode}?'Save User':'Create User'">

@@ -1,13 +1,19 @@
 package com.app.pack.entity;
 
 import java.io.Serializable;
+
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -48,9 +54,6 @@ public class User implements Serializable {
 	private String fechaNac;
 	
 	@Column
-	private String rol;
-	
-	@Column
 	@Size(min=10, message="Debe tener al menos 10 caracteres")
 	private String email;
 	
@@ -58,7 +61,11 @@ public class User implements Serializable {
 	@Size(min=6, message ="Contraseña demasiado corta")
 	private String password;
 	
-	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="user_roles"
+		,joinColumns=@JoinColumn(name="user_id")
+		,inverseJoinColumns=@JoinColumn(name="role_id"))
+	private Set<Role> roles;
 
 	public Long getUid() {
 		return uid;
@@ -108,13 +115,6 @@ public class User implements Serializable {
 		this.fechaNac = fechaNac;
 	}
 
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
 
 	public String getEmail() {
 		return email;
@@ -134,7 +134,7 @@ public class User implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellido1, apellido2, dni, email, fechaNac, nombre, password, rol, uid);
+		return Objects.hash(apellido1, apellido2, dni, email, fechaNac, nombre, password, uid);
 	}
 
 	@Override
@@ -149,15 +149,23 @@ public class User implements Serializable {
 		return Objects.equals(apellido1, other.apellido1) && Objects.equals(apellido2, other.apellido2)
 				&& Objects.equals(dni, other.dni) && Objects.equals(email, other.email)
 				&& Objects.equals(fechaNac, other.fechaNac) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(password, other.password) && Objects.equals(rol, other.rol)
+				&& Objects.equals(password, other.password) 
 				&& Objects.equals(uid, other.uid);
 	}
 
 	@Override
 	public String toString() {
 		return "User [uid=" + uid + ", nombre=" + nombre + ", dni=" + dni + ", apellido1=" + apellido1 + ", apellido2="
-				+ apellido2 + ", fechaNac=" + fechaNac + ", rol=" + rol + ", email=" + email + ", password=" + password
+				+ apellido2 + ", fechaNac=" + fechaNac + ",  email=" + email + ", password=" + password
 				+ "]";
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 	
