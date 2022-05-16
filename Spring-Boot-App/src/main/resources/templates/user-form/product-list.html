@@ -16,8 +16,12 @@
 									<td th:text="${product.cantidad}"></td>
 									<td th:text="${product.descripcion}"></td>
 									<td>
+										<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
 										<a href="#" th:href="@{'/editProduct/'+ ${product.pid}}"><i class="fas fa-edit"></i></a>
+										</span>
+										<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
 										| <a href="#" th:onclick="'javascript:confirmarDelete2(\''+ ${product.pid} +'\');'"><i class="fas fa-user-times"></i></a>
+										</span>
 									</td>
 								</tr>
 								</tbody>

@@ -19,6 +19,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class User implements Serializable {
@@ -129,6 +130,9 @@ public class User implements Serializable {
 	}
 
 	public void setPassword(String password) {
+		//BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+	       
+		//this.password = bCryptPasswordEncoder.encode(password);
 		this.password = password;
 	}
 

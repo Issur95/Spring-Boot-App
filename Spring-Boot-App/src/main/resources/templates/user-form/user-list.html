@@ -11,6 +11,7 @@
 								</tr>
 								</thead>
 								<tbody>
+								<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
 								<tr th:each="user: ${userList}">
 									<td th:text="${user.uid}"></td>
 									<td th:text="${user.nombre}"></td>
@@ -18,10 +19,25 @@
 									<td th:text="${user.dni}"></td>
 									<td th:text="${user.email}"></td>
 									<td>
+										<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
 										<a href="#" th:href="@{'/editUser/'+ ${user.uid}}"><i class="fas fa-edit"></i></a>
 										| <a href="#" th:onclick="'javascript:confirmarDelete(\''+ ${user.uid} +'\');'"><i class="fas fa-user-times"></i></a>
+										</span>
 									</td>
 								</tr>
+								</span>
+								<tr th:each="user: ${userList}">
+								<span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')} and ${#httpServletRequest.remoteUser==user.nombre}">
+									<td th:text="${user.uid}"></td>
+									<td th:text="${user.nombre}"></td>
+									<td th:text="${user.apellido1}"></td>
+									<td th:text="${user.dni}"></td>
+									<td th:text="${user.email}"></td>
+									<td>
+										<a href="#" th:href="@{'/editUser/'+ ${user.uid}}"><i class="fas fa-edit"></i></a>
+									</td>
+								</tr>
+								</span>
 								</tbody>
 							</table>
 							<div class="alert alert-danger text-center" th:if="${deleteError}" th:text="${deleteError}">Mensaje de error</div>

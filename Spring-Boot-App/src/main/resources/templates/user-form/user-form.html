@@ -1,32 +1,32 @@
-
+					<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
 						<form class="form" role="form" autocomplete="off" th:object="${userForm}" method="post" th:action="${editMode} ?@{/editUser} :@{/userForm}">
 							<input class="form-control" type=hidden th:field="${userForm.uid}"  th:if="${editMode}"> 
-<!-- salta error sin esta linea de arriba porque el uid seria nulo, no se va a cambiar, por lo tanto, se mantendra en hidden el uid con el valor previo sin opcion a cambiarlo-->
+<!-- saltaba error sin esta linea de arriba porque el uid seria nulo, no se va a cambiar, por lo tanto, se mantendra en hidden el uid con el valor previo sin opcion a cambiarlo-->
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Nombre</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" th:field="${userForm.nombre}">
+									<input class="form-control" type="text" th:field="${userForm.nombre}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error en el nombre</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Primer Apellido</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" th:field="${userForm.apellido1}">
+									<input class="form-control" type="text" th:field="${userForm.apellido1}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}">Error en el apellido</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Segundo Apellido</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" th:field="${userForm.apellido2}">
+									<input class="form-control" type="text" th:field="${userForm.apellido2}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}">Error en el apellido</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Email</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="email" th:field="${userForm.email}">
+									<input class="form-control" type="email" th:field="${userForm.email}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email erroneo</div>
 								</div>
 							</div>
@@ -34,33 +34,46 @@
 <!--  th:action="${editMode} ?@{/editUser} :@{/userForm}" si se quisiera evitar cambio de contraseña -->
 								<label class="col-lg-3 col-form-label form-control-label">Password</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="password" th:field="${userForm.password}">
+									<input class="form-control" type="password" th:field="${userForm.password}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Contraseña no valida</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">DNI</label>
 								<div class="col-lg-9">
-									<input class="form-control" maxlength="9" type="text" th:field="${userForm.dni}">
+									<input class="form-control" maxlength="9" type="text" th:field="${userForm.dni}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}">DNI no valido</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Fecha Nacimiento</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="date"  maxlength="10"  min="1900-01-01" max="2030-12-31" th:field="${userForm.fechaNac}">
+									<input class="form-control" type="date"  maxlength="10"  min="1900-01-01" max="2022-12-31" th:field="${userForm.fechaNac}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}">Fecha de nacimiento no valida</div>
 								</div>
 							</div>
+							<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
 							<div class="form-group row">
 								<label th:text="Roles" class="col-lg-3 col-form-label form-control-label"></label>
 								<div class="col-lg-9">
-									<select class="form-control" size="2" th:field="${userForm.roles}">
-									<option th:each="role :${roles}" th:value="${role.id}" th:text="${role.name}">
+									<select class="form-control" size="2" th:field="${userForm.roles}" th:disabled="${disableFields}" >
+									<option th:each="role :${roles}"  th:value="${role.id}" th:text="${role.name}">
 									</option>
 									</select>
 							</div>
 							</div>
+							</span>
+							<span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+							<div class="form-group row">
+								<label th:text="Roles" class="col-lg-3 col-form-label form-control-label"></label>
+								<div class="col-lg-9">
+									<select class="form-control" size="1" th:field="${userForm.roles}" th:disabled="${disableFields}" >
+									<option selected th:value="2" th:text="USER" >
+									</option>
+									</select>
+							</div>
+							</div>
+							</span>
 							<div class="form-group row">
 								<div class="col-lg-12 text-center">
 									<a class="btn btn-secondary" th:href="@{'/userForm/cancel'}" > Cancel </a>
@@ -69,3 +82,5 @@
 							</div>
 							<div class="alert alert-danger text-center" th:if="${formError}" th:text="${formError}">Mensaje de error</div>
 						</form>
+						
+						</div>

@@ -1,60 +1,60 @@
-
+					<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}">
 						<form class="form" role="form" autocomplete="off" th:object="${productForm}" method="post" th:action="${editMode} ?@{/editProduct} :@{/productForm}">
 							<input class="form-control" type=hidden th:field="${productForm.pid}"  th:if="${editMode}"> 
 							<!-- necesario ponerlo en hidden con el valor original de pid, ya que sino da nula y saltan errores -->
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Nombre del Producto</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" maxlength="15"th:field="${productForm.nombreP}">
+									<input class="form-control" type="text" maxlength="15"th:field="${productForm.nombreP}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('nombreP')}" th:errors="*{nombreP}">Error en el nombre</div> 
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Tipo</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" maxlength="10" th:field="${productForm.tipo}">
+									<input class="form-control" type="text" maxlength="10" th:field="${productForm.tipo}" th:disabled="${disableFields}">
 								    <div class="alert-danger" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}">Error en el tipo del producto</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Descripcion</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" th:field="${productForm.descripcion}">
+									<input class="form-control" type="text" th:field="${productForm.descripcion}" th:disabled="${disableFields}">
 									 <div class="alert-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error en la descripcion</div> 
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Codigo de Barras</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" maxlength="13" th:field="${productForm.codBarras}">
+									<input class="form-control" type="text" maxlength="13" th:field="${productForm.codBarras}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('codBarras')}" th:errors="*{codBarras}">Error en el codigo de barras</div> 
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Codigo QR</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" maxlength="13" th:field="${productForm.codQR}">
+									<input class="form-control" type="text" maxlength="13" th:field="${productForm.codQR}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('codQR')}" th:errors="*{codQR}">Error en el QR</div> 
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Cantidad</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="number" min="1" max="99999" th:field="${productForm.cantidad}">
+									<input class="form-control" type="number" min="1" max="99999" th:field="${productForm.cantidad}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}">Error en la cantidad</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Precio</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" maxlength="10" th:field="${productForm.precio}">
+									<input class="form-control" type="text" maxlength="10" th:field="${productForm.precio}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">Error en el precio</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-lg-3 col-form-label form-control-label">Imagen</label>
 								<div class="col-lg-9">
-									<input class="form-control" type="text" th:field="${productForm.imagen}">
+									<input class="form-control" type="text" th:field="${productForm.imagen}" th:disabled="${disableFields}">
 									<div class="alert-danger" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}">Error en la imagen</div>
 								</div>
 							</div>
@@ -66,3 +66,5 @@
 							</div>
 							<div class="alert alert-danger text-center" th:if="${formError}" th:text="${formError}">Mensaje de error</div>
 						</form>
+						
+					</div>

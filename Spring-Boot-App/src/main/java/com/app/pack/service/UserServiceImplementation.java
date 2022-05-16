@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.pack.entity.User;
@@ -21,7 +23,7 @@ public class UserServiceImplementation implements UserService{
 	}
 	
 	private boolean emailNoenUso(User user) throws Exception {
-		Set<User> userFound = userRepository.findByEmail(user.getEmail());
+		Optional<User> userFound = userRepository.findByEmail(user.getEmail());
 		if (!userFound.isEmpty()) {
 			throw new Exception("Email en uso");
 		}
@@ -32,6 +34,8 @@ public class UserServiceImplementation implements UserService{
 	@Override
 	public User createUser(User user) throws Exception {
 		if (emailNoenUso(user)) {
+			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			user= userRepository.save(user);
 		}
 		return user;
@@ -44,22 +48,25 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public User updateUser(User oldUser) throws Exception {
-		User newUser = getUserById(oldUser.getUid());
-		mapUser(oldUser, newUser);
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+	public User updateUser(User User) throws Exception {
+		User newUser = getUserById(User.getUid());
+		mapUser(User, newUser);
 		userRepository.save(newUser);
 		return newUser;
 		
 	}
 
-	protected void mapUser(User oldUser, User newUser) {
-		newUser.setNombre(oldUser.getNombre());
-		newUser.setApellido1(oldUser.getApellido1());
-		newUser.setApellido2(oldUser.getApellido2());
-		newUser.setDni(oldUser.getDni());
-		newUser.setFechaNac(oldUser.getFechaNac());
-		newUser.setDni(oldUser.getDni());
-		newUser.setPassword(oldUser.getPassword());
+	protected void mapUser(User User, User newUser) {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+		newUser.setNombre(User.getNombre());
+		newUser.setApellido1(User.getApellido1());
+		newUser.setApellido2(User.getApellido2());
+		newUser.setDni(User.getDni());
+		newUser.setFechaNac(User.getFechaNac());
+		newUser.setDni(User.getDni());
+		newUser.setPassword(bCryptPasswordEncoder.encode(User.getPassword()));
+		newUser.setRoles(User.getRoles());
 	}
 
 	@Override
